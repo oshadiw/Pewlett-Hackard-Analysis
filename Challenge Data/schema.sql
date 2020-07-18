@@ -53,5 +53,4 @@ CREATE TABLE dept_emp (
 	FOREIGN KEY (dept_no) REFERENCES departments (dept_no),
 	PRIMARY KEY (emp_no, dept_no)
 );
-
 SELECT * FROM departments;
