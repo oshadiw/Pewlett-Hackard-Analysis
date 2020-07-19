@@ -45,4 +45,27 @@ INTO retiring_employees
    FROM retirement_challenge
   ) tmp WHERE rn = 1;
   ```
-  It was found that the total number of retirement-age employees is 72,458, with employees from 7 different departments. The number of employees per department is shown below:
+It was found that the total number of retirement-age employees is 72,458, with 7 different titles. The number of employees per title is shown below:
+![table](https://github.com/oshadiw/Pewlett-Hackard-Analysis/blob/master/Challenge%20Data/no_employees_title.png)
+
+Finally, the company requested the number of current employees who are eligible to participate in a mentorship program. The qualifications for this program are current employees who were born between January 1, 1965 and December 31, 1965. This was found using the same method as finding the retirement-eligible employees, but changing the birthdate range:
+```
+SELECT e.emp_no,
+	e.first_name,
+	e.last_name,
+	titles.title,
+	de.from_date,
+	de.to_date
+INTO mentorship_program
+FROM employees as e
+INNER JOIN titles
+ON (titles.emp_no= e.emp_no)
+INNER JOIN dept_emp as de
+ON (e.emp_no = de.emp_no)
+WHERE (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+AND (de.to_date = '9999-01-01');
+```
+After this data was partitioned, it was found that 1,549 employees are eligible for the mentorship program. 
+## Limitations and Further Recommendations
+
+  
