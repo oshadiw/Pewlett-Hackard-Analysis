@@ -50,6 +50,7 @@ INTO retiring_employees
   ```
 
   It was found that the total number of retirement-age employees is 72,458, with 7 different titles. The number of employees per title is shown below:
+
 ![table](https://github.com/oshadiw/Pewlett-Hackard-Analysis/blob/master/Challenge%20Data/no_employees_title.png)
 
   Finally, the company requested the number of current employees who are eligible to participate in a mentorship program. The qualifications for this program are current employees who were born between January 1, 1965 and December 31, 1965. This was found using the same method as finding the retirement-eligible employees, but changing the birthdate range:
@@ -71,6 +72,6 @@ AND (de.to_date = '9999-01-01');
 ```
 
   After this data was partitioned, it was found that 1,549 employees are eligible for the mentorship program. 
-## Limitations and Further Recommendations
+## Further Recommendations
 
-  
+  This information is extremely valuable for the company to determine how many employees will be retiring soon. Further analysis could be conducted to find out how long certain employees in different dpeartments have worked at the company, to see what the turnover rate may be when hiring new employees. Calculations could also be done on the total salaries of various departments, to see if there are any departments that are under paid. 
