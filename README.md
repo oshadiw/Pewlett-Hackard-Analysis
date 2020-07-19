@@ -6,7 +6,7 @@
 
   The database consisted of many files, so the first step was to identify the relationships within the data files in order to determine the database keys. This was done by creating an Entity Relationship Diagram, or ERD (shown below). 
 ![ERD](https://github.com/oshadiw/Pewlett-Hackard-Analysis/blob/master/Challenge%20Data/EmployeeDB.png)
-As seen in the ERD, the primary keys linking most of the data sets are the employee number and department number. Using this information, the appropriate tables were created in PostgreSQL- 
+As seen in the ERD, the primary keys linking the data sets are the employee number and department number. Using this information, the appropriate tables were created in PostgreSQL- 
 ```
    CREATE TABLE departments (
      dept_no VARCHAR(4) NOT NULL,
@@ -34,3 +34,15 @@ ON (e.emp_no = de.emp_no)
 WHERE (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
 AND (de.to_date = '9999-01-01');
 ```
+This data was then partitioned to exclude employees who worked under multiple titles in order to avoid duplicate counts. 
+```
+SELECT emp_no, first_name, last_name, from_date, salary, title
+INTO retiring_employees
+  FROM
+(SELECT emp_no, first_name, last_name, from_date, salary, title,
+     ROW_NUMBER() OVER
+(PARTITION BY (emp_no) ORDER BY from_date DESC) rn
+   FROM retirement_challenge
+  ) tmp WHERE rn = 1;
+  ```
+  It was found that the total number of retirement-age employees is 72,458, with employees from 7 different departments. The number of employees per department is shown below:
